@@ -2049,6 +2049,7 @@ export const useAppStore = create<AppState>((set, get) => ({
                 createdAt: c.created_at || new Date().toISOString()
               }));
               set({ customers: mapped });
+              saveStorage('ksa_customers', mapped);
             }
           }),
           supabaseService.getProducts().then(remoteProducts => {
@@ -2073,6 +2074,7 @@ export const useAppStore = create<AppState>((set, get) => ({
                 };
               });
               set({ products: productsMap });
+              saveStorage('ksa_products', productsMap);
             }
           }),
           supabaseService.getUsers().then(remoteUsers => {
@@ -2086,6 +2088,7 @@ export const useAppStore = create<AppState>((set, get) => ({
                 }
               });
               set({ users: merged });
+              saveStorage('ksa_users', merged);
             }
           }),
           supabaseService.getTransactions().then(remoteTxs => {
@@ -2105,6 +2108,7 @@ export const useAppStore = create<AppState>((set, get) => ({
                 marginContribution: Number(t.margin_contribution)
               }));
               set({ transactions: transactionsMap });
+              saveStorage('ksa_transactions', transactionsMap);
             }
           }),
           supabaseService.getAuditLogs().then(remoteLogs => {
@@ -2209,6 +2213,7 @@ export const useAppStore = create<AppState>((set, get) => ({
                 branchId: o.branch_id
               }));
               set({ onlineOrders: mapped });
+              saveStorage('ksa_online_orders', mapped);
             }
           }),
           supabaseService.getStoreSettings().then(remoteSettings => {
