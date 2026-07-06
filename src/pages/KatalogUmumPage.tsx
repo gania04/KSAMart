@@ -434,12 +434,7 @@ export default function KatalogUmumPage() {
                       {paymentMethod === 'EWALLET' && (
                         <div className="space-y-2">
                           <p className="text-slate-600">Silakan transfer sebesar <b className="text-green-700">Rp {cartTotal.toLocaleString('id-ID')}</b> ke e-wallet berikut:</p>
-                          {(!settings.paymentMethods?.ewallet || settings.paymentMethods.ewallet.length === 0) ? (
-                            <div className="p-3 bg-white rounded border border-purple-200 shadow-sm">
-                              <p className="font-bold text-purple-800">DANA / OVO</p>
-                              <p className="font-mono text-base mt-1">Belum diatur oleh toko</p>
-                            </div>
-                          ) : (
+                          {settings.paymentMethods?.ewallet && settings.paymentMethods.ewallet.length > 0 ? (
                             settings.paymentMethods.ewallet.map((w, idx) => (
                               <div key={idx} className="p-3 bg-white rounded border border-purple-200 shadow-sm">
                                 <p className="font-bold text-purple-800">{w.provider}</p>
@@ -447,6 +442,12 @@ export default function KatalogUmumPage() {
                                 <p className="text-gray-500 mt-1">a.n. {w.accountName}</p>
                               </div>
                             ))
+                          ) : (
+                            <div className="p-3 bg-white rounded border border-purple-200 shadow-sm">
+                              <p className="font-bold text-purple-800">💜 DANA (E-Wallet)</p>
+                              <p className="font-mono text-base mt-1">{settings.ownerWhatsapp || '085881893650'}</p>
+                              <p className="text-gray-500 mt-1">a.n. KSA Mart Syariah</p>
+                            </div>
                           )}
                         </div>
                       )}
@@ -457,8 +458,10 @@ export default function KatalogUmumPage() {
                           {settings.qrisImageUrl ? (
                             <img src={settings.qrisImageUrl} alt="QRIS KSA Mart" className="w-full max-w-[200px] h-auto object-contain rounded-xl border-2 border-fuchsia-200 shadow-sm p-1 bg-white" />
                           ) : (
-                            <div className="p-4 bg-rose-50 text-rose-700 rounded-lg text-center w-full">
-                              Toko belum mengunggah kode QRIS. Silakan pilih metode lain.
+                            <div className="p-4 bg-fuchsia-50 text-fuchsia-700 rounded-lg text-center w-full space-y-2">
+                              <p className="font-bold">💠 QRIS (Dana / Semua Bank)</p>
+                              <p className="text-[11px]">Kode QRIS tersedia di kasir toko KSA Mart.</p>
+                              <p className="text-[10px] text-fuchsia-600">Hubungi admin via WhatsApp untuk mendapatkan kode QRIS pembayaran, atau pilih metode E-Wallet (Dana) di atas.</p>
                             </div>
                           )}
                         </div>

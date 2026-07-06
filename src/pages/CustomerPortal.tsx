@@ -551,38 +551,53 @@ export default function CustomerPortal() {
                       <CreditCard className="w-4 h-4 text-green-700"/> Metode Pembayaran
                     </p>
                     <div className="space-y-1.5 text-gray-700">
-                      {(!settings.paymentMethods?.bankTransfer || settings.paymentMethods.bankTransfer.length === 0) && 
-                       (!settings.paymentMethods?.ewallet || settings.paymentMethods.ewallet.length === 0) ? (
+                      {/* Bank Transfer */}
+                      {settings.paymentMethods?.bankTransfer && settings.paymentMethods.bankTransfer.length > 0 ? (
+                        settings.paymentMethods.bankTransfer.map((b, idx) => (
+                          <div key={`bank-${idx}`} className="p-2 bg-white rounded border border-green-100">
+                            <p className="font-bold text-green-800">{b.bankName}</p>
+                            <p className="text-[11px] font-mono">No. Rek: <span className="font-bold text-slate-900">{b.accountNumber}</span></p>
+                            <p className="text-[10px] text-gray-500">a.n. {b.accountName}</p>
+                          </div>
+                        ))
+                      ) : (
                         <div className="p-2 bg-white rounded border border-green-100">
                           <p className="font-bold text-green-800">Transfer Bank Syariah (BSI)</p>
                           <p className="text-[11px] font-mono">No. Rek: <span className="font-bold text-slate-900">7182938495</span></p>
                           <p className="text-[10px] text-gray-500">a.n. KSA Mart Syariah</p>
                         </div>
-                      ) : (
-                        <>
-                          {settings.paymentMethods?.bankTransfer?.map((b, idx) => (
-                            <div key={idx} className="p-2 bg-white rounded border border-green-100">
-                              <p className="font-bold text-green-800">{b.bankName}</p>
-                              <p className="text-[11px] font-mono">No. Rek: <span className="font-bold text-slate-900">{b.accountNumber}</span></p>
-                              <p className="text-[10px] text-gray-500">a.n. {b.accountName}</p>
-                            </div>
-                          ))}
-                          {settings.paymentMethods?.ewallet?.map((w, idx) => (
-                            <div key={idx} className="p-2 bg-white rounded border border-green-100">
-                              <p className="font-bold text-purple-800">{w.provider}</p>
-                              <p className="text-[11px] font-mono">No / ID: <span className="font-bold text-slate-900">{w.number}</span></p>
-                              <p className="text-[10px] text-gray-500">a.n. {w.accountName}</p>
-                            </div>
-                          ))}
-                        </>
                       )}
-                      
-                      {settings.qrisImageUrl && (
-                        <div className="p-2 bg-white rounded border border-green-100 flex flex-col items-center">
-                          <p className="font-bold text-slate-800 text-center mb-2">Scan QRIS</p>
-                          <img src={settings.qrisImageUrl} alt="QRIS KSA Mart" className="w-full max-w-[200px] h-auto object-contain rounded" />
+
+                      {/* E-Wallet / Dana */}
+                      {settings.paymentMethods?.ewallet && settings.paymentMethods.ewallet.length > 0 ? (
+                        settings.paymentMethods.ewallet.map((w, idx) => (
+                          <div key={`ew-${idx}`} className="p-2 bg-white rounded border border-purple-100">
+                            <p className="font-bold text-purple-800">{w.provider}</p>
+                            <p className="text-[11px] font-mono">No / ID: <span className="font-bold text-slate-900">{w.number}</span></p>
+                            <p className="text-[10px] text-gray-500">a.n. {w.accountName}</p>
+                          </div>
+                        ))
+                      ) : (
+                        <div className="p-2 bg-white rounded border border-purple-100">
+                          <p className="font-bold text-purple-800">💜 DANA (E-Wallet)</p>
+                          <p className="text-[11px] font-mono">No: <span className="font-bold text-slate-900">{settings.ownerWhatsapp || '085881893650'}</span></p>
+                          <p className="text-[10px] text-gray-500">a.n. KSA Mart Syariah</p>
                         </div>
                       )}
+
+                      {/* QRIS - Selalu tampil */}
+                      <div className="p-2 bg-white rounded border border-fuchsia-100 flex flex-col items-center">
+                        <p className="font-bold text-fuchsia-800 text-center mb-2">💠 Scan QRIS (Dana / Semua Bank)</p>
+                        {settings.qrisImageUrl ? (
+                          <img src={settings.qrisImageUrl} alt="QRIS KSA Mart" className="w-full max-w-[200px] h-auto object-contain rounded" />
+                        ) : (
+                          <div className="w-full p-3 bg-fuchsia-50 rounded-lg text-center">
+                            <p className="text-fuchsia-700 text-[11px] font-medium">QRIS tersedia di kasir toko KSA Mart.</p>
+                            <p className="text-fuchsia-600 text-[10px] mt-1">Hubungi admin via WhatsApp untuk mendapatkan kode QRIS pembayaran.</p>
+                          </div>
+                        )}
+                      </div>
+
                       <p className="text-[10px] text-gray-500 italic mt-1">
                         * Silakan lakukan transfer sesuai total belanja Anda. Setelah memesan, Admin akan segera memproses dan mengonfirmasi pesanan Anda via WhatsApp.
                       </p>
