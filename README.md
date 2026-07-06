@@ -2,7 +2,7 @@
 
 > Platform Kasir Terintegrasi dengan Akuntansi Syariah, Manajemen Inventori, dan Kalkulasi Zakat Otomatis untuk Koperasi Syariah ADZ-ZIKRA
 
-**Project:** KSADZZIKRA | **Supabase ID:** svfbkndqyvcqglqjvrql | **GitHub:** yudiharyono1991-hash/KSADZZIKRA
+**Project:** KSADZZIKRA | **Supabase ID:** svfbkndqyvcqglqjvrql| **GitHub:** https://github.com/gania04/KSAMart.git
 
 ---
 
