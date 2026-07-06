@@ -199,13 +199,7 @@ const getSavedCoaList = (): CoaAccount[] => {
   return DEFAULT_COA;
 };
 
-const DEFAULT_PRODUCTS: Product[] = [
-  // PPOB System Products
-  { id: 'ppob_1', tenantId: 'tenant_default', sku: 'PPOB-PLS-50', name: 'Pulsa Telkomsel 50.000', category: 'Pulsa', price: 51500, costPrice: 50000, stock: 9999, minStock: 0, unit: 'Trx', isHalal: true, isPPOB: true },
-  { id: 'ppob_2', tenantId: 'tenant_default', sku: 'PPOB-PLN-100', name: 'Token PLN 100.000', category: 'Token Listrik', price: 102500, costPrice: 100000, stock: 9999, minStock: 0, unit: 'Trx', isHalal: true, isPPOB: true },
-  { id: 'ppob_3', tenantId: 'tenant_default', sku: 'PPOB-PDAM', name: 'Tagihan PDAM (Admin)', category: 'PDAM', price: 2500, costPrice: 1000, stock: 9999, minStock: 0, unit: 'Trx', isHalal: true, isPPOB: true },
-  { id: 'ppob_4', tenantId: 'tenant_default', sku: 'PPOB-BPJS', name: 'Bayar BPJS (Admin)', category: 'BPJS', price: 2500, costPrice: 1000, stock: 9999, minStock: 0, unit: 'Trx', isHalal: true, isPPOB: true }
-];
+const DEFAULT_PRODUCTS: Product[] = [];
 
 const DEFAULT_TRANSACTIONS: Transaction[] = [];
 
@@ -2058,7 +2052,7 @@ export const useAppStore = create<AppState>((set, get) => ({
             }
           }),
           supabaseService.getProducts().then(remoteProducts => {
-            if (remoteProducts && remoteProducts.length > 0) {
+            if (remoteProducts) {
               const localProducts = JSON.parse(localStorage.getItem('ksa_products') || '[]');
               const productsMap = remoteProducts.map(p => {
                 const localP = localProducts.find((lp: any) => lp.id === p.id);
